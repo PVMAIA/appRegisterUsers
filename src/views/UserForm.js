@@ -31,12 +31,9 @@ const UserForm = ({route, navigation}) => {
     const selectedDateFormated = selectedDate
       ? formatDate(selectedDate, 'YYYY/MM/DD', 'MM/DD/YYYY')
       : null;
-
-    console.log(selectedDateFormated);
     const dateOfBirthPtBr =
       selectedDateFormated &&
       formatDate(selectedDateFormated, 'MM/DD/YYYY', 'DD/MM/YYYY');
-    console.log(dateOfBirthPtBr);
     const currentDate = dateOfBirthPtBr || dateOfBirth;
     setShow(false);
     setDateOfBirth(currentDate);
