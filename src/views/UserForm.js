@@ -16,7 +16,9 @@ import moment from 'moment';
 const UserForm = ({route, navigation}) => {
   const [user, setUser] = useState(route.params ?? {});
   const [dateOfBirth, setDateOfBirth] = useState(
-    route.params ? route.params.dateofbirth : null,
+    route.params
+      ? formatDate(route.params.dateofbirth, 'MM/DD/YYYY', 'DD/MM/YYYY')
+      : null,
   );
   const [newPhoto, setNewPhoto] = useState(null);
   const [show, setShow] = useState(false);
@@ -27,9 +29,15 @@ const UserForm = ({route, navigation}) => {
 
   function handleChangeDateOfBirth(event, selectedDate) {
     const selectedDateFormated = selectedDate
-      ? formatDate(selectedDate, 'YYYY/MM/DD', 'DD/MM/YYYY')
+      ? formatDate(selectedDate, 'YYYY/MM/DD', 'MM/DD/YYYY')
       : null;
-    const currentDate = selectedDateFormated || dateOfBirth;
+
+    console.log(selectedDateFormated);
+    const dateOfBirthPtBr =
+      selectedDateFormated &&
+      formatDate(selectedDateFormated, 'MM/DD/YYYY', 'DD/MM/YYYY');
+    console.log(dateOfBirthPtBr);
+    const currentDate = dateOfBirthPtBr || dateOfBirth;
     setShow(false);
     setDateOfBirth(currentDate);
     setUser({...user, dateofbirth: currentDate});
@@ -197,11 +205,11 @@ const UserForm = ({route, navigation}) => {
           maximumDate={new Date()}
           onChange={handleChangeDateOfBirth}
           format={'YYYY/MM/DD'}
-          displayFormat={'DD/MM/YYYY'}
+          displayFormat={'MM/DD/YYYY'}
         />
       )}
       <Pressable style={style.buttonDate} onPress={() => setShow(true)}>
-        <Text>{dateOfBirth}</Text>
+        <Text>{dateOfBirth || ''}</Text>
         <Icon name="calendar-today" size={22} />
       </Pressable>
       <Button

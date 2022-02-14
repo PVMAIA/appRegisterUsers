@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Avatar, Button, ListItem} from 'react-native-elements';
@@ -22,7 +23,8 @@ const UserItem = ({item: user, navigation, handleDeleteUser}) => {
       <ListItem.Content>
         <ListItem.Title style={style.title}>{user.name}</ListItem.Title>
         <ListItem.Subtitle>
-          Data de nascimento: {user.dateofbirth}
+          Data de nascimento:{' '}
+          {moment(user.dateofbirth, 'MM/DD/YYYY').format('DD/MM/YYYY')}
         </ListItem.Subtitle>
         <ListItem.Subtitle>Código: {user.code}</ListItem.Subtitle>
       </ListItem.Content>
